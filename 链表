@@ -1,0 +1,121 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "stdbool.h"
+
+typedef int ElemType;
+struct Lnode{
+	ElemType data;
+	struct Lnode * next;
+}; 
+typedef struct Lnode * List;
+
+int Length(List L)//求链表的表长 
+{
+	List p;
+	int cnt = 0;
+	p = L;
+	while(p)
+	{
+		p = p->next;
+		cnt++; 
+	}
+	return cnt;
+}
+
+int FindK(List L, int K)//按序号查找 
+{//K为指定位序 
+	List p;
+	int cnt = 1;
+	p = L;
+	while(p && cnt < K)
+	{
+		p = p->next;
+		cnt++;
+	}
+	if(cnt == K && p)
+		return p->data;//返回K位序上的数据 
+	else
+	    return -1;
+} 
+
+List Find(List L, ElemType X)//按值查找 
+{
+	List p = L;
+	while(p && p->data != X)
+	    p = p->next;
+	
+	return p;
+} 
+
+List headInsert(List L, ElemType X)//头插法 
+{
+	List t;
+	L->next = NULL;
+	t = (List)malloc(sizeof(struct Lnode));
+	t->data = X;
+	t->next = L->next;
+	L->next = t;
+	return L;
+} 
+
+List tailInsert(List L, ElemType X)//尾插法 
+{
+	List tail, t;
+	tail = NULL;
+	t = (List)malloc(sizeof(struct Lnode));
+	t->data = X;
+	if(L == NULL)
+	    L = t;
+	else
+	    tail->next = t;
+	tail = t;
+    return L;
+} 
+
+bool Delete(List L, int i)//删除结点 
+{
+	List t, p;
+	int cnt = 0;
+	p = L;
+	while(p && cnt < i - 1)
+	{
+		p = p->next;
+		cnt++;
+	}
+	if(p == NULL || cnt != i - 1 || p->next == NULL)
+    {
+    	printf("位序不存在！\n");
+		return false; 
+	}
+	else
+	{
+		t = p->next;//令t等于要删除的结点 
+		p->next = t->next;//将被删除结点的next赋值给它前一个结点(p)的next 
+		free(t);
+		return true;
+	}
+}
+
+int main()
+{
+	List L;
+	L = (List)malloc(sizeof(struct Lnode));
+	ElemType x;
+	int n;
+	scanf("%d", &n);
+	for(int i = 0; i < n; i++)
+	{
+		scanf("%d", &x);
+		L = headInsert(L, x);
+	}
+	
+	
+	
+	
+	return 0;
+}
+
+
+
+
+
