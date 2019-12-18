@@ -1,0 +1,76 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct node * Lnode;
+struct node{
+	int data;
+	Lnode next;
+};
+
+Lnode creatList()
+{
+	Lnode head = (Lnode)malloc(sizeof(struct node));
+	head = NULL;
+	return head;
+}
+
+Lnode headInsert(Lnode head, int x)
+{
+	Lnode p;
+	p = (Lnode)malloc(sizeof(struct node));
+	p->data = x;
+	p->next = head->next;
+	head->next = p;
+	return head;
+}
+
+Lnode tailInsert(int n)
+{
+	Lnode head = (Lnode)malloc(sizeof(struct node));
+	Lnode tail, p;
+	head = tail = NULL;
+	int x;
+	for(int i = 0; i < n; i++)
+	{
+		scanf("%d", &x);
+		p = (Lnode)malloc(sizeof(struct node));
+		p->data = x;
+		p->next = NULL;
+		if(head == NULL)
+		  head = p;
+		else
+		  tail->next = p;
+		tail = p;
+	}
+	return head;
+}
+
+
+int main()
+{
+//	Lnode head, p;
+//	head = creatList();
+	int n,a;
+	scanf("%d", &n);
+//	for(int i = 0; i < n; i++)
+//	{
+//		scanf("%d", &a);
+//		tailInsert(head, a);
+//	}
+//	p = head->next;
+//	while(p)
+//	{
+//		printf("%d ", p->data);
+//		p = p->next;
+//	}
+    Lnode p;
+    Lnode head = tailInsert(n);
+    p = head;
+    while(p->next)
+    {
+    	printf("%d ", p->data);
+    	p = p->next;
+	}
+	printf("%d", p->data);
+	return 0;
+}
