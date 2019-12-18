@@ -1,0 +1,63 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct node * Snode;
+struct node{
+	int * data;
+	int Top;
+	int MaxSize;
+};
+
+Snode creatStack(int MaxSize)
+{
+	Snode S = (Snode)malloc(sizeof(struct node));
+	S->data = (int*)malloc(MaxSize * sizeof(int));
+	S->Top = -1;
+	S->MaxSize = MaxSize;
+	return S;
+}
+
+bool Push(Snode S, int x)
+{
+	if(S->Top == S->MaxSize - 1)
+	  return false;
+	else
+	{
+		S->data[++(S->Top)] = x;
+		return true;
+	}
+}
+
+bool Pop(Snode S)
+{
+	if(S->Top == -1)
+	  return false;
+	else
+	{
+		S->data[(S->Top)--];
+		return true;
+	}
+}
+
+int main()
+{
+	Snode S = creatStack(5);
+	int n, a;
+	scanf("%d", &n);
+	for(int i = 0; i < n; i++)
+	{
+		scanf("%d", &a);
+		Push(S, a);
+	}
+	for(int i = S->Top; i >= 0; i--)
+	{
+		printf("%d ", S->data[i]);
+	}
+	printf("\n");
+	Pop(S);
+	for(int i = S->Top; i >= 0; i--)
+	{
+		printf("%d ", S->data[i]);
+	}
+	return 0;
+}
